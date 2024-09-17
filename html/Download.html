@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediaPort - Download</title>
+    <link rel="stylesheet" type="text/css" href="../css/movies.css">
+    <script>
+        // Movie data stored in a JavaScript object
+        const movies = {
+
+        };
+
+        // Function to get URL parameters
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            const results = regex.exec(window.location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        }
+
+        // Function to update the page content
+        function updateMovieDetails() {
+            const movieId = getUrlParameter('movie_id');
+            const movie = movies[movieId];
+
+            if (movie) {
+                document.getElementById('movie-title').textContent = "Download " + movie.title;
+                document.getElementById('movie-img').src = movie.imgSrc;
+                document.getElementById('download-link').href = movie.url;
+                document.getElementById('movie-name').textContent = movie.title;
+            } else {
+                document.getElementById('movie-title').textContent = "Movie not found";
+                document.getElementById('download-link').style.display = "none";
+                document.getElementById('movie-img').style.display = "none";
+            }
+        }
+
+        window.onload = updateMovieDetails;
+    </script>
+</head>
+<body>
+    <header>
+        <h1>MediaPort</h1>
+        <nav>
+            <ul>
+                <li><a href="../index.html">HOME</a></li>
+                <li><a href="../html/audio.html">AUDIO</a></li>
+                <li><a href="../html/videos.html">VIDEOS</a></li>
+                <li><a href="../html/movies.html">MOVIES</a></li>
+                <li><a href="../html/feedback.html">FEEDBACK</a></li>
+                <li><a href="../html/about.html">ABOUT</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="movie">
+            <h1 id="movie-title">Loading...</h1>
+            <p>Click the download link below to proceed.</p>
+            <div class="row">
+                <a id="download-link" href="#" download>
+                    <div class="movie-col">
+                        <img id="movie-img" src="#" style="float:center" width="300px" height="200px" alt="Movie Image">
+                        <p id="movie-name"><b>Movie Title</b></p>
+                    </div>
+                </a>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 MediaPort. All rights reserved.</p>
+    </footer>
+</body>
+</html>

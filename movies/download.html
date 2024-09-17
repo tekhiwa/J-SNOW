@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Movie</title>
+    <link rel="stylesheet" type="text/css" href="../movies/download.css">
+</head>
+
+<body>
+    <header>
+        <h1>Download Movie</h1>
+    </header>
+
+    <main>
+        <div class="row">
+            <div class="movie-col">
+                <section class="movie-download">
+                    <img id="movie-image" width="300px" height="200px" alt="Movie Poster">
+                    <p id="movie-title"><b></b></p>
+                    <a id="download-link" href="" download>Proceed to download</a>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 MediaPort. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Function to get query parameters (e.g., ?title=Movie&image=movie1.jpg&download=movie1.mp4)
+        function getParameterByName(name) {
+            const url = window.location.href;
+            name = name.replace(/[\[\]]/g, '\\$&');
+            const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+            const results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+
+        // Get parameters from URL
+        const movieTitle = getParameterByName('title');
+        const movieImage = getParameterByName('image');
+        const movieDownload = getParameterByName('download');
+
+        // Update the page content dynamically
+        if (movieTitle && movieImage && movieDownload) {
+            document.getElementById('movie-title').innerText = movieTitle;
+            document.getElementById('movie-image').src = `../movies/posters/${movieImage}`;
+            document.getElementById('download-link').href = `../movies/files/${movieDownload}`;
+        } else {
+            document.getElementById('movie-title').innerText = "Movie not found.";
+            document.getElementById('download-link').style.display = "none";
+        }
+    </script>
+
+</body>
+
+</html>
