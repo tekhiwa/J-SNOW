@@ -30,7 +30,7 @@
     </footer>
 
     <script>
-        // Function to get query parameters (e.g., ?title=Movie&image=movie1.jpg&download=movie1.mp4)
+        // Function to get query parameters (e.g., ?title=Movie&image=movie1.jpg&download=GOOGLE_DRIVE_FILE_ID)
         function getParameterByName(name) {
             const url = window.location.href;
             name = name.replace(/[\[\]]/g, '\\$&');
@@ -44,13 +44,13 @@
         // Get parameters from URL
         const movieTitle = getParameterByName('title');
         const movieImage = getParameterByName('image');
-        const movieDownload = getParameterByName('download');
+        const googleDriveFileId = getParameterByName('download'); // This will be the Google Drive File ID
 
         // Update the page content dynamically
-        if (movieTitle && movieImage && movieDownload) {
+        if (movieTitle && movieImage && googleDriveFileId) {
             document.getElementById('movie-title').innerText = movieTitle;
             document.getElementById('movie-image').src = `../movies/posters/${movieImage}`;
-            document.getElementById('download-link').href = `../movies/files/${movieDownload}`;
+            document.getElementById('download-link').href = `https://drive.google.com/uc?export=download&id=${googleDriveFileId}`;
         } else {
             document.getElementById('movie-title').innerText = "Movie not found.";
             document.getElementById('download-link').style.display = "none";
