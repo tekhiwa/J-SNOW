@@ -17,9 +17,9 @@
         <div class="row">
             <div class="movie-col">
                 <section class="movie-download">
-                    <img id="movie-image" width="300px" height="200px" alt="Movie Poster">
-                    <p id="movie-title"><b></b></p>
-                    <a id="download-link" href="" download>Proceed to download</a>
+                    <img id="movie-image" width="300px" height="200px" alt="Movie Poster" src="../movies/posters/movie1.jpg">
+                    <p id="movie-title"><b>Sample Movie</b></p>
+                    <a id="download-link" href="https://drive.google.com/uc?export=download&id=1V73xM1e4_3Zq1l2-wu3YHMohdb6dKojv" download>Proceed to download</a>
                 </section>
             </div>
         </div>
@@ -28,35 +28,6 @@
     <footer>
         <p>&copy; 2024 MediaPort. All rights reserved.</p>
     </footer>
-
-    <script>
-        // Function to get query parameters (e.g., ?title=Movie&image=movie1.jpg&download=movie1.mp4)
-        function getParameterByName(name) {
-            const url = window.location.href;
-            name = name.replace(/[\[\]]/g, '\\$&');
-            const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
-            const results = regex.exec(url);
-            if (!results) return null;
-            if (!results[2]) return '';
-            return decodeURIComponent(results[2].replace(/\+/g, ' '));
-        }
-
-        // Get parameters from URL
-        const movieTitle = getParameterByName('title');
-        const movieImage = getParameterByName('image');
-        const googleDriveFileId = getParameterByName('download'); // This will be the Google Drive File ID
-
-        // Update the page content dynamically
-        if (movieTitle && movieImage && googleDriveFileId) {
-            document.getElementById('movie-title').innerText = movieTitle;
-            document.getElementById('movie-image').src = `../movies/posters/${movieImage}`;
-            document.getElementById('download-link').href = `https://drive.google.com/uc?export=download&id=${googleDriveFileId}`;
-        } else {
-            document.getElementById('movie-title').innerText = "Movie not found.";
-            document.getElementById('download-link').style.display = "none";
-        }
-    </script>
-
 </body>
 
 </html>
