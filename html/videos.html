@@ -2,18 +2,18 @@
 <html>
 <head>
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-G0XGGE2R86"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G0XGGE2R86"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
 
-  gtag('config', 'G-G0XGGE2R86');
-</script>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" type="text/css" href="../css/style.css">
-<style>
-</style>
+    gtag('config', 'G-G0XGGE2R86');
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../css/style.css">
+  <style>
+  </style>
 </head>
 <body style="font-family:Verdana;">
 
@@ -24,7 +24,7 @@
 
 <div style="overflow:auto">
   <div class="menu">
-     <div class="menuitem"><a href="../index.html">Home</a></div>
+    <div class="menuitem"><a href="../index.html">Home</a></div>
     <div class="menuitem"><a href="../movie/movies.html">Movies</a></div>
     <div class="menuitem"><a href="../html/videos.html">Videos</a></div>
     <div class="menuitem"><a href="../html/audios.html">Audios</a></div>
@@ -44,7 +44,6 @@
 
     <p>Martse-Mabala_ft_Provoice</p>
     <video src="../video/Martse_-_Mabala_ft_Provoice_(Official_Video)(480p).mp4" style="width: 100%;" controls></video>
-
   </div>
 
   <div class="right">
@@ -65,10 +64,22 @@
   // Get all video elements on the page
   const videoElements = document.querySelectorAll('video');
 
-  videoElements.forEach((video) => {
-    // Add an event listener for the 'play' event
+  videoElements.forEach((video, index) => {
+    // Event listener for when a video ends
+    video.addEventListener('ended', () => {
+      // Check if there is a next video
+      if (index + 1 < videoElements.length) {
+        const nextVideo = videoElements[index + 1];
+        nextVideo.play(); // Play the next video
+        window.scrollTo({
+          top: nextVideo.getBoundingClientRect().top + window.scrollY - 50, // Scroll to next video
+          behavior: 'smooth',
+        });
+      }
+    });
+
+    // Event listener to pause other videos when one starts
     video.addEventListener('play', () => {
-      // Pause all other video elements
       videoElements.forEach((otherVideo) => {
         if (otherVideo !== video) {
           otherVideo.pause();
