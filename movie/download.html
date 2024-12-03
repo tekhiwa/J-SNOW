@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-G0XGGE2R86"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-G0XGGE2R86');
+    </script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+
+    <style>
+        /* Ensure the body takes up at least the full height of the viewport */
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+
+        /* Use flexbox to make the content area flexible and push footer down */
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Main content area should expand to fill available space */
+        .main {
+            flex: 1;
+        }
+
+        /* Footer stays at the bottom */
+        footer {
+            background-color: brown;
+            text-align: center;
+            padding: 10px;
+            margin-top: 7px;
+            font-size: 20px;
+            color: white;
+            padding-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div style="background-color:brown;padding:15px; border-radius: 5px;">
+        <h1>Media Port</h1>
+        <h3>The Home Of Entertainment</h3>
+    </div>
+
+    <div style="overflow:auto">
+        <div class="menu">
+            <div class="menuitem"><a href="../index.html">Home</a></div>
+            <div class="menuitem"><a href="../movie/movies.html">movie</a></div>
+            <div class="menuitem"><a href="../html/videos.html">Videos</a></div>
+            <div class="menuitem"><a href="../html/audios.html">Audios</a></div>
+            <div class="menuitem"><a href="../html/feedback.html">Feedback</a></div>
+            <div class="menuitem"><a href="../html/about.html">About us</a></div>
+        </div>
+
+        <div class="main">
+            <section class="movie-download" style="text-align:center; padding:20px; background-color:#f0f0f0; border-radius: 8px;">
+                <!-- Movie Image -->
+                <img id="movie-image" width="300px" height="350px" alt="Movie Poster" style="border-radius: 5px;">
+                <!-- Movie Title -->
+                <p id="movie-title"><b></b></p>
+                <!-- Download Link -->
+                <a id="download-link" href="" download style="padding: 10px 20px; background-color:#008CBA; color:white; border-radius:5px; text-decoration:none;">
+                    Proceed to download
+                </a>
+            </section>
+        </div>
+
+        <div class="right">
+            <h2>What's new today?</h2>
+            <p>Eli Njuchi JU.</p>
+            <p>Saint Una.</p>
+
+            <h2>Most trending?</h2>
+            <p>Onessmas controller.</p>
+
+            <h2>Most downloaded?</h2>
+            <p>Movie: Fighting in a park!</p>
+            <p>Audio: Martse mwapindulanji</p>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <div style="background-color:brown;text-align:center;padding:10px;margin-top:7px;font-size:20px; color: white; padding-bottom: 10px;">
+            Media Port 2024
+        </div>
+    </footer>
+
+    <!-- Script to dynamically update movie content based on query parameters -->
+    <script>
+        // Function to get query parameters from the URL
+        function getParameterByName(name) {
+            const url = window.location.href;
+            name = name.replace(/[\[\]]/g, '\\$&');
+            const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+            const results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+
+        // Get movie data from URL query parameters
+        const movieTitle = getParameterByName('title');
+        const movieImage = getParameterByName('image');
+        const movieDownload = getParameterByName('download');
+
+        // Update the page content with the movie data
+        if (movieTitle && movieImage && movieDownload) {
+            document.getElementById('movie-title').innerText = movieTitle;
+            document.getElementById('movie-image').src = `../movie/posters/${movieImage}`;
+            document.getElementById('download-link').href = `../movie/files/${movieDownload}`;
+        } else {
+            document.getElementById('movie-title').innerText = "Movie not found."; 
+            document.getElementById('download-link').style.display = "none"; 
+        }
+    </script>
+
+</body>
+
+</html>
