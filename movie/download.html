@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 
 <head>
@@ -103,29 +103,17 @@
             return decodeURIComponent(results[2].replace(/\+/g, ' '));
         }
 
-        // Movie ID mapping for Google Drive file links
-        const movieFileMapping = {
-            'Moana 2 (2024)': 'FILE_ID_1',
-            'Movie 2': 'FILE_ID_2',
-            // Add more movie names and corresponding Google Drive IDs here
-        };
-
         // Get movie data from URL query parameters
         const movieTitle = getParameterByName('title');
         const movieImage = getParameterByName('image');
         const movieDownload = getParameterByName('download');
         const movieSummary = getParameterByName('summary');
 
-        // Construct Google Drive download link using the movie title
-        const googleDriveLink = movieFileMapping[movieTitle] 
-            ? `https://drive.google.com/uc?export=download&id=${movieFileMapping[movieTitle]}` 
-            : '';
-
         // Update the page content with the movie data
-        if (movieTitle && movieImage && googleDriveLink) {
+        if (movieTitle && movieImage && movieDownload) {
             document.getElementById('movie-title').innerText = movieTitle;
             document.getElementById('movie-image').src = `../movie/posters/${movieImage}`;
-            document.getElementById('download-link').href = googleDriveLink;
+            document.getElementById('download-link').href = `../movie/files/${movieDownload}`;
             document.getElementById('movie-summary').innerText = movieSummary || "No summary available.";
         } else {
             document.getElementById('movie-title').innerText = "Movie not found.";
