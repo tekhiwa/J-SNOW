@@ -1,16 +1,7 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-G0XGGE2R86"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'G-G0XGGE2R86');
-    </script>
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../css/style.css">
 
@@ -70,16 +61,14 @@
         </div>
 
         <div class="right">
-            <h2>What's new today?</h2>
-            <p>Eli Njuchi JU.</p>
-            <p>Saint Una.</p>
-
-            <h2>Most trending?</h2>
-            <p>Onessmas controller.</p>
-
-            <h2>Most downloaded?</h2>
-            <p>Movie: Fighting in a park!</p>
-            <p>Audio: Martse mwapindulanji</p>
+            <h2>Choose a Movie:</h2>
+            <ul>
+                <!-- Add Movie Links Here -->
+                <li><a href="download.html?title=Moana%202%20(2024)&image=moana2.jpg&download=moana2.mp4&summary=Moana%20faces%20a%20new%20adventure.">Moana 2</a></li>
+                <li><a href="download.html?title=Fighting%20in%20the%20Park&image=fighting_in_park.jpg&download=fighting_in_park.mp4&summary=An%20epic%20battle%20in%20the%20park.">Fighting in the Park</a></li>
+                <li><a href="download.html?title=The%20Great%20Adventure&image=great_adventure.jpg&download=great_adventure.mp4&summary=A%20mystical%20journey%20into%20the%20unknown.">The Great Adventure</a></li>
+                <!-- More movies here -->
+            </ul>
         </div>
     </div>
 
@@ -92,33 +81,34 @@
 
     <!-- Script to dynamically update movie content based on query parameters -->
     <script>
-        // Function to get query parameters from the URL
-        function getParameterByName(name) {
-            const url = window.location.href;
-            name = name.replace(/[\[\]]/g, '\\$&');
-            const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
-            const results = regex.exec(url);
-            if (!results) return null;
-            if (!results[2]) return '';
-            return decodeURIComponent(results[2].replace(/\+/g, ' '));
-        }
+       // Function to get query parameters from the URL
+function getParameterByName(name) {
+    const url = window.location.href;
+    name = name.replace(/[\[\]]/g, '\\$&');
+    const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+    const results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
 
-        // Get movie data from URL query parameters
-        const movieTitle = getParameterByName('title');
-        const movieImage = getParameterByName('image');
-        const movieDownload = getParameterByName('download');
-        const movieSummary = getParameterByName('summary');
+// Get movie data from URL query parameters
+const movieTitle = getParameterByName('title');
+const movieImage = getParameterByName('image');
+const movieDownload = getParameterByName('download');
+const movieSummary = getParameterByName('summary');
 
-        // Update the page content with the movie data
-        if (movieTitle && movieImage && movieDownload) {
-            document.getElementById('movie-title').innerText = movieTitle;
-            document.getElementById('movie-image').src = `../movie/posters/${movieImage}`;
-            document.getElementById('download-link').href = `../movie/files/${movieDownload}`;
-            document.getElementById('movie-summary').innerText = movieSummary || "No summary available.";
-        } else {
-            document.getElementById('movie-title').innerText = "Movie not found.";
-            document.getElementById('download-link').style.display = "none";
-        }
+// Update the page content with the movie data
+if (movieTitle && movieImage && movieDownload) {
+    document.getElementById('movie-title').innerText = movieTitle;
+    document.getElementById('movie-image').src = `../movie/posters/${movieImage}`;
+    document.getElementById('download-link').href = `https://drive.google.com/file/d/${movieDownload}`;
+    document.getElementById('movie-summary').innerText = movieSummary || "No summary available.";
+} else {
+    document.getElementById('movie-title').innerText = "Movie not found.";
+    document.getElementById('download-link').style.display = "none";
+}
+
     </script>
 </body>
 </html>
