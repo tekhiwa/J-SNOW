@@ -15,24 +15,17 @@
     <link rel="stylesheet" type="text/css" href="../css/style.css">
 
     <style>
-        /* Ensure the body takes up at least the full height of the viewport */
         html, body {
             height: 100%;
             margin: 0;
         }
-
-        /* Use flexbox to make the content area flexible and push footer down */
         body {
             display: flex;
             flex-direction: column;
         }
-
-        /* Main content area should expand to fill available space */
         .main {
             flex: 1;
         }
-
-        /* Footer stays at the bottom */
         footer {
             background-color: brown;
             text-align: center;
@@ -46,7 +39,6 @@
 </head>
 
 <body>
-
     <div style="background-color:brown;padding:15px; border-radius: 5px;">
         <h1>Media Port</h1>
         <h3>The Home Of Entertainment</h3>
@@ -55,7 +47,7 @@
     <div style="overflow:auto">
         <div class="menu">
             <div class="menuitem"><a href="../index.html">Home</a></div>
-            <div class="menuitem"><a href="../movie/movies.html">movie</a></div>
+            <div class="menuitem"><a href="../movie/movies.html">Movies</a></div>
             <div class="menuitem"><a href="../html/videos.html">Videos</a></div>
             <div class="menuitem"><a href="../html/audios.html">Audios</a></div>
             <div class="menuitem"><a href="../html/feedback.html">Feedback</a></div>
@@ -68,6 +60,8 @@
                 <img id="movie-image" width="300px" height="350px" alt="Movie Poster" style="border-radius: 5px;">
                 <!-- Movie Title -->
                 <p id="movie-title"><b></b></p>
+                <!-- Movie Summary -->
+                <p id="movie-summary" style="font-style: italic; color: #555;"></p>
                 <!-- Download Link -->
                 <a id="download-link" href="" download style="padding: 10px 20px; background-color:#008CBA; color:white; border-radius:5px; text-decoration:none;">
                     Proceed to download
@@ -109,22 +103,34 @@
             return decodeURIComponent(results[2].replace(/\+/g, ' '));
         }
 
+        // Movie ID mapping for Google Drive file links
+        const movieFileMapping = {
+            'Moana 2 (2024)': 'FILE_ID_1',
+            'Movie 2': 'FILE_ID_2',
+            // Add more movie names and corresponding Google Drive IDs here
+        };
+
         // Get movie data from URL query parameters
         const movieTitle = getParameterByName('title');
         const movieImage = getParameterByName('image');
         const movieDownload = getParameterByName('download');
+        const movieSummary = getParameterByName('summary');
+
+        // Construct Google Drive download link using the movie title
+        const googleDriveLink = movieFileMapping[movieTitle] 
+            ? `https://drive.google.com/uc?export=download&id=${movieFileMapping[movieTitle]}` 
+            : '';
 
         // Update the page content with the movie data
-        if (movieTitle && movieImage && movieDownload) {
+        if (movieTitle && movieImage && googleDriveLink) {
             document.getElementById('movie-title').innerText = movieTitle;
             document.getElementById('movie-image').src = `../movie/posters/${movieImage}`;
-            document.getElementById('download-link').href = `../movie/files/${movieDownload}`;
+            document.getElementById('download-link').href = googleDriveLink;
+            document.getElementById('movie-summary').innerText = movieSummary || "No summary available.";
         } else {
-            document.getElementById('movie-title').innerText = "Movie not found."; 
-            document.getElementById('download-link').style.display = "none"; 
+            document.getElementById('movie-title').innerText = "Movie not found.";
+            document.getElementById('download-link').style.display = "none";
         }
     </script>
-
 </body>
-
 </html>
